@@ -1,0 +1,14 @@
+# credit:
+# https://learn.adafruit.com/running-programs-automatically-on-your-tiny-computer/systemd-writing-and-enabling-a-service
+
+[Unit]
+Description=Smart video counter updater
+After=multi-user.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python /opt/smart-video-counter/updater.py
+Restart=on-abort
+
+[Install]
+WantedBy=multi-user.target
