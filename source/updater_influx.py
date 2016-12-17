@@ -65,7 +65,7 @@ class InfluxdbUpdater(object):
 
         logging.debug("updating InfluxDB database")
 
-        items = message.split(' ')
+        items = data.split(' ')
         while len(items) < 4:
             items.append('0')
 

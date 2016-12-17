@@ -7,7 +7,8 @@ After=multi-user.target
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/python /opt/smart-video-counter/updater.py
+WorkingDirectory=/opt/smart-video-counter/source
+ExecStart=/usr/bin/python /opt/smart-video-counter/source/updater.py
 Restart=on-abort
 
 [Install]

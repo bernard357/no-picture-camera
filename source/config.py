@@ -22,7 +22,7 @@ log = {
 #
 
 #mysql = {
-#    'host': '192.168.0.101',
+#    'host': 'localhost',
 #    'user': 'root',
 #    'password': 'root',
 #    'database': 'smart-video-counter',
@@ -33,7 +33,7 @@ log = {
 #
 
 #influxdb = {
-#    'host': '192.168.0.40',
+#    'host': 'localhost',
 #    'port': 8086,
 #    'user': 'root',
 #    'password': 'root',

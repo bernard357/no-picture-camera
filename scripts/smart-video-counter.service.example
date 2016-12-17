@@ -1,0 +1,15 @@
+# credit:
+# https://learn.adafruit.com/running-programs-automatically-on-your-tiny-computer/systemd-writing-and-enabling-a-service
+
+[Unit]
+Description=Smart video counter scanner
+After=multi-user.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/smart-video-counter/source
+ExecStart=/usr/bin/python /opt/smart-video-counter/source/smart-video-counter.py
+Restart=on-abort
+
+[Install]
+WantedBy=multi-user.target

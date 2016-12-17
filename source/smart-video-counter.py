@@ -97,15 +97,18 @@ while True:
     #
     nextim = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     nextim = cv2.bitwise_and(nextim, nextim, mask=mask)
-    flow = cv2.calcOpticalFlowFarneback(prev, nextim, None, 0.5, 1, 15, 3, 5, 1.2, 0)
+    flow = cv2.calcOpticalFlowFarneback(prev, nextim, 0.5, 1, 15, 3, 5, 1.2, 0)
     mag, ang = cv2.cartToPolar(flow[...,0], flow[...,1])
     mag = mag*0.8
     prev = nextim
 
     for(xA, yA,xB, yB) in pick:
-        m = np.median(mag[yA:yB,xA:xB])
-        if m > 1.7:
-            people_moves += 1
+        try:
+            m = np.median(mag[yA:yB,xA:xB])
+            if m > 1.7:
+                people_moves += 1
+        except RuntimeWarning:
+            pass
 
     # push counters via Unix Domain Socket
     #
@@ -115,11 +118,11 @@ while True:
                                people_faces)
     uds.push(message)
 
-    # provide feedback on screen
+    # provide feedback on screen (requires VNC access)
     #
-    for(xA, yA, xB, yB) in pick:
-        cv2.rectangle(mask, (xA,yA), (xB,yB), 255, -1)
-        cv2.rectangle(gray, (xA,yA), (xB,yB), 255, 2)
-    cv2.imshow("image", gray)
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-        break
+#    for(xA, yA, xB, yB) in pick:
+#        cv2.rectangle(mask, (xA,yA), (xB,yB), 255, -1)
+#        cv2.rectangle(gray, (xA,yA), (xB,yB), 255, 2)
+#    cv2.imshow("image", gray)
+#    if cv2.waitKey(1) & 0xFF == ord('q'):
+#        break

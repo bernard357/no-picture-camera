@@ -64,7 +64,7 @@ def process():
 
     # initialise socket file
     #
-    logging.info('hit Ctl-C to break')
+    logging.info('hit Ctl-C to break when in interactive mode')
     sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
     sock.bind(handle)
     sock.listen(1)
