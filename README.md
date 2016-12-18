@@ -1,8 +1,10 @@
-# smart-video-counter
+# The No-picture Camera project
+
 Raspberry Pi with camera and OpenCV, a better solution than CCTV
 
-## Why is this project about?
+![smart-video-counter](docs/media/smart-video-counter.png)
 
-## How is this project structured?
+Read [instructions to setup a standalone camera](docs/setup.standalone.md), including OpenCV, the scanning software, the InfluxDB database and the Grafana dashboard, all on the same Raspberry PI.
 
-## What are the technical components involved in a smart video counter?
+
+
