@@ -22,7 +22,7 @@ sudo chmod 0777 -R /opt/smart-video-counter
 cd smart-video-counter/source/
 ```
 
-The first thing to do is to change the id of your camera:
+You will immediately change the id of your camera to ensure that it is unique:
 
 ```
 sudo nano config.py
@@ -33,12 +33,12 @@ database and reports. You should avoid spaces and special punctuation characters
 
 ![config.py](media/config.py.png)
 
-To save changes hit `Ctl-O` then `Ctl-X`.
+Save changes with `Ctl-O` and exit with `Ctl-X`.
 
 ## Install the updater service
 
 The updater service handles measurements coming from the camera. Multiple options can be considered,
-for example: save data in a text file, send data to a sql database, or to an influx database.
+for example: save data in a text file, send data to a sql database, or to an InfluxDB database.
 
 Install the updater service with following commands:
 
@@ -194,7 +194,7 @@ If you have multiple lines of text, you can congratulate yourself!
 [Grafana](http://grafana.org/) is an open source metric analytics & visualization suite. It is most commonly used for visualizing time series data for infrastructure and application analytics but many use it in other domains including industrial sensors, home automation, weather, and process control.
 
 Currently there is no package for Grafana on Raspberry Pi, so we can build
-the software progressively; Go, then NodeJS and Grafana.
+the software progressively: Go, then NodeJS and Grafana.
 
 ```
 wget https://storage.googleapis.com/golang/go1.7.4.linux-armv6l.tar.gz
@@ -236,7 +236,17 @@ grunt --force
 On successful start of the server, open a browser window and enter
 the IP address of the raspberry Pi, followed by `:3000`.
 
-This will drive you to the login page of Grafana.
+This will display the login page of Grafana. From there you can authenticate with `admin` and `admin` then add a new data source and build a dashboard.
+
+Click on the Grafana logo and then select Data Sources. Select a source of type InfluxDB and then pick up the database named `smart-video-counter`.
+
+![grafana.data-source](media/grafana.data-source.png)
+
+Then add a new dashboard and add one graph per measure: standing, moves, faces.
+
+![grafana.graph](media/grafana.graph.png)
+
+
 
 
 
