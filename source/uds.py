@@ -82,29 +82,25 @@ def process():
             # receive data sent by the client
             #
             message = ''
-            while True:
-                try:
-                    chunk = connection.recv(1024)
-                except socket.error:
-                    break
-
-                if chunk:
-                    logging.debug('received "%s"' % chunk)
-                    message += chunk
-                else:
-                    logging.debug('no more data')
-                    break
+            try:
+                message = connection.recv(1024)
+                logging.debug('received "%s"' % message)
+            except socket.error:
+                logging.error('socket error')
 
             # push data to updaters
             #
             logging.info('--> %s' % message)
 
             for updater in updaters:
-                updater(message)
+                try:
+                    updater(message)
+                except Exception as feedback:
+                    logging.error("Error: update has generated an exception")
+                    logging.info(str(feedback))
 
         # terminate this connection
         #
         finally:
             logging.debug("closing connection")
             connection.close()
-
