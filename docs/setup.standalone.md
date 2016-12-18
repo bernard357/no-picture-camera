@@ -117,7 +117,7 @@ If everything went fine, the system should report a successful start:
 At this stage, the camera is scanning images, and reporting measurements in a log file.
 Look in real-time at the log file while standing in front of the camera:
 
-![tail.log](tail.log.png)
+![tail.log](media/tail.log.png)
 
 Great! The camera is working as expected. Now we can change the configuration and put data in a real database.
 
