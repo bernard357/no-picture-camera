@@ -105,7 +105,7 @@ while True:
     for(xA, yA,xB, yB) in pick:
         try:
             m = np.median(mag[yA:yB,xA:xB])
-            if m > 1.7:
+            if m > 1.6:
                 people_moves += 1
         except RuntimeWarning:
             pass
