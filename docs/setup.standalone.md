@@ -1,15 +1,16 @@
 # Standalone setup
 
 On this page you will find instructions to install a standalone camera.
+
+![architecture](media/architecture.standalone.png)
+
 Everything you need is installed on a single Raspberry Pi device:
 - the camera itself
 - the scanning software powered by OpenCV
 - the InfluxDB database
 - the Grafana web dashboard
 
-![architecture](media/architecture.standalone.png)
-
-With this architecture, use the network address of the Raspberry Pi itself
+With this architecture, use the network address of the Raspberry Pi
 to access live data in Grafana.
 
 ## Install camera software
@@ -80,8 +81,8 @@ Now we will setup the camera counter itself.
 
 ## Test the scanner
 
-The scanner gets pictures from the camera, performs various analysis, and send counters
-to the updater.
+The scanner is powered by [OpenCV](http://opencv.org/). It is the sub-system that analyses in real-time the flow of images coming from the camera
+and generates counters every 2 seconds: number of persons, number of moves, and number of human faces detectd.
 
 Test the scanner from the command line:
 
@@ -208,7 +209,11 @@ sudo systemctl status grafana-server.service
 ```
 
 On successful start of the server, open a browser window and enter
-the IP address of the raspberry Pi, followed by `:3000`.
+the IP address used for SSH communications with the Raspberry Pi, followed by `:3000`.
+
+```
+http://<ip_of_raspberry>:3000
+```
 
 This will display the login page of Grafana. From there you can authenticate with `admin` and `admin` then add a new data source and build a dashboard.
 
