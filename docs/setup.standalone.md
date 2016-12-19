@@ -3,7 +3,7 @@
 On this page you will find instructions to install a standalone camera.
 Everything you need is installed on a single Raspberry Pi device:
 - the camera itself
-- the scanning software
+- the scanning software powered by OpenCV
 - the InfluxDB database
 - the Grafana web dashboard
 
@@ -21,7 +21,9 @@ sudo mkdir -p /opt
 cd /opt
 sudo git clone https://github.com/bernard357/smart-video-counter.git
 sudo chmod 0777 -R /opt/smart-video-counter
-cd smart-video-counter/source/
+cd smart-video-counter
+pip install -r requirements.txt
+cd source
 ```
 
 You will immediately change the id of your camera to ensure that it is unique:
@@ -151,15 +153,9 @@ If everything went fine, you could get positive feedback on the InfluxDB service
 
 ![systemctl.status.influxdb](media/systemctl.status.influxdb.png)
 
-## Install and configure the InfluxDB updater
+## Configure the InfluxDB updater
 
-The installation of the InfluxDB client is far easier than for the server:
-
-```
-pip install influxdb
-```
-
-Then we change the configuration of the system so that updates are sent to InfluxDB too.
+We change the configuration of the system so that updates are sent to InfluxDB too.
 Uncomment the block referring to infludb.
 
 ```
