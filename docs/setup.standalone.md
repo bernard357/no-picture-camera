@@ -7,6 +7,8 @@ Everything you need is installed on a single Raspberry Pi device:
 - the InfluxDB database
 - the Grafana web dashboard
 
+![architecture](media/architecture.standalone.png)
+
 With this architecture, use the network address of the Raspberry Pi itself
 to access live data in Grafana.
 
@@ -33,7 +35,7 @@ database and reports. You should avoid spaces and special punctuation characters
 
 ![config.py](media/config.py.png)
 
-Save changes with `Ctl-O` and exit with `Ctl-X`.
+Save changes with `Ctl-O` and exit the editor with `Ctl-X`.
 
 ## Install the updater service
 
@@ -166,7 +168,7 @@ nano config.py
 
 ![config.py.influxdb](media/config.py.influxdb.png)
 
-Save changes with `Ctl-O` and exit with `Ctl-X`. The updater is restarted so that the new configuration is used:
+Save changes with `Ctl-O` and exit with `Ctl-X`. Then restart the updater so that the new configuration is used:
 
 ```
 systemctl restart updater.service
@@ -188,49 +190,25 @@ If you have multiple lines of text, you can congratulate yourself!
 > exit
 ```
 
-
 ## Install Grafana
 
 [Grafana](http://grafana.org/) is an open source metric analytics & visualization suite. It is most commonly used for visualizing time series data for infrastructure and application analytics but many use it in other domains including industrial sensors, home automation, weather, and process control.
 
-Currently there is no package for Grafana on Raspberry Pi, so we can build
-the software progressively: Go, then NodeJS and Grafana.
+Currently there are multiple steps to install Grafana on Raspberry Pi, so let do that progressively:
 
 ```
-wget https://storage.googleapis.com/golang/go1.7.4.linux-armv6l.tar.gz
-tar -C /usr/local -xzf go1.7.4.linux-armv6l.tar.gz
-echo 'export PATH=$PATH:/usr/local/go/bin' > /etc/profile.d/go.sh
-chmod +x /etc/profile.d/go.sh
-. /etc/profile.d/go.sh
-go version
-```
+# grafana data is a dependancy for grafana
+sudo apt-get install -y fonts-font-awesome libjs-angularjs libjs-twitter-bootstrap
+wget http://ftp.us.debian.org/debian/pool/main/g/grafana/grafana-data_2.6.0+dfsg-3_all.deb
+sudo dpkg -i grafana-data_2.6.0+dfsg-3_all.deb
+sudo apt-get install -f
 
-Then install NodeJS using specific commands for Raspberry Pi:
-
-```
-curl -sLS https://apt.adafruit.com/add | sudo bash
-sudo apt-get install node
-node -v
-```
-
-For Grafana we build it from source:
-
-```
-mkdir -p /opt/grafana
-export GOPATH=/opt/grafana
-go get github.com/grafana/grafana
-cd $GOPATH/src/github.com/grafana/grafana
-go run build.go setup
-go run build.go build
-```
-
-We also add front-end assets:
-
-```
-npm install
-sudo npm install -g grunt-cli
-grunt --force
-./bin/grafana-server
+sudo apt-get install -y golang-go golang-go-linux-arm golang-go.tools golang-src
+wget http://ftp.us.debian.org/debian/pool/main/g/grafana/grafana_2.6.0+dfsg-3_armhf.deb
+sudo dpkg -i grafana_2.6.0+dfsg-3_armhf.deb
+sudo apt-get install -f
+sudo systemctl start grafana-server.service
+sudo systemctl status grafana-server.service
 ```
 
 On successful start of the server, open a browser window and enter
