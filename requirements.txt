@@ -1,3 +1,4 @@
 influxdb
 MySQL-python
 imutils
+wiringpi
