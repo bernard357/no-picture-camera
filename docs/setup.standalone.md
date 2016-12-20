@@ -225,12 +225,4 @@ Then add a new dashboard and add one graph per measure: standing, moves, faces.
 
 ![grafana.graph](media/grafana.graph.png)
 
-
-
-
-
-
-
-
-
-
+[(Credit to John Whittington for Grafana setup)](http://engineer.john-whittington.co.uk/2016/11/raspberry-pi-data-logger-influxdb-grafana/)
