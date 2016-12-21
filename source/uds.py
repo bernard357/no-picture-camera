@@ -67,6 +67,7 @@ def process():
     logging.info('hit Ctl-C to break when in interactive mode')
     sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
     sock.bind(handle)
+    os.chmod(handle, 0o777)
     sock.listen(1)
 
     # process every client request
