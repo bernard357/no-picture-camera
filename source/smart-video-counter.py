@@ -93,6 +93,9 @@ while True:
     pick = non_max_suppression(rects, probs=None, overlapThresh=0.65)
     people_count = len(pick)
 
+    for(xA, yA, xB, yB) in pick:
+        cv2.rectangle(mask, (xA,yA), (xB,yB), 255, -1)
+
     # count moving people
     #
     nextim = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
@@ -104,6 +107,7 @@ while True:
 
     for(xA, yA,xB, yB) in pick:
         try:
+            print m
             m = np.median(mag[yA:yB,xA:xB])
             if m > 1.6:
                 people_moves += 1
@@ -120,9 +124,6 @@ while True:
 
     # provide feedback on screen (requires VNC access)
     #
-#    for(xA, yA, xB, yB) in pick:
-#        cv2.rectangle(mask, (xA,yA), (xB,yB), 255, -1)
-#        cv2.rectangle(gray, (xA,yA), (xB,yB), 255, 2)
 #    cv2.imshow("image", gray)
 #    if cv2.waitKey(1) & 0xFF == ord('q'):
 #        break
