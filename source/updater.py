@@ -5,6 +5,7 @@ import logging
 import socket
 import datetime
 import config
+import requests
 
 # uncomment only one
 #
@@ -59,8 +60,8 @@ try:
 except AttributeError:
     logging.debug("no configuration for MySQL")
 
-except ConnectionError:
-    logging.error("could not connect to MySQL server")
+#except ConnectionError:
+#    logging.error("could not connect to MySQL server")
 
 # push data to influx database
 #
@@ -78,7 +79,7 @@ try:
 except AttributeError:
     logging.debug("no configuration for InfluxDB")
 
-except ConnectionError:
+except requests.exceptions.ConnectionError:
     logging.error("could not connect to InfluxDB server")
 
 # perpetual loop to receive data and trigger all updaters
