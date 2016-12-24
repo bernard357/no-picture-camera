@@ -11,6 +11,20 @@ import config
 logging.basicConfig(format='%(message)s', level=logging.INFO)
 #logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.DEBUG)
 
+# wait for server to be ready
+#
+def use_database(updater):
+    attempts = 0
+    while True:
+        try:
+            updater.use_database()
+            break
+        except:
+            attempts += 1
+            if attempts > 5:
+                raise
+            time.sleep(10)
+
 # get data from socket and process it
 #
 import uds
@@ -37,12 +51,16 @@ try:
     logging.debug("loading MySQL updater")
     from updater_mysql import MysqlUpdater
     updater = MysqlUpdater(settings)
-    updater.use_database()
+
+    use_database(updater)
 
     uds.add(updater.push)
 
 except AttributeError:
     logging.debug("no configuration for MySQL")
+
+except ConnectionError:
+    logging.error("could not connect to MySQL server")
 
 # push data to influx database
 #
@@ -52,12 +70,16 @@ try:
     logging.debug("loading InfluxDB updater")
     from updater_influx import InfluxdbUpdater
     updater = InfluxdbUpdater(settings)
-    updater.use_database()
+
+    use_database(updater)
 
     uds.add(updater.push)
 
 except AttributeError:
     logging.debug("no configuration for InfluxDB")
+
+except ConnectionError:
+    logging.error("could not connect to InfluxDB server")
 
 # perpetual loop to receive data and trigger all updaters
 #
