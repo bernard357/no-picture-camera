@@ -52,7 +52,7 @@ If you have multiple boards, then consider [instructions to connect smart camera
 ## Where to find additional assistance?
 
 Well, maybe you would like to check [Frequently asked questions](docs/questions.md) and related responses.
-Then you can [raise an issue at the GitHub project page](https://github.com/bernard357/smart-video-counter) and get support from the project team.
+Then you can [raise an issue at the GitHub project page](https://github.com/bernard357/smart-video-counter/issues) and get support from the project team.
 
 ## How would you like to contribute?
 
