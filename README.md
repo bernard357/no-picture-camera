@@ -59,13 +59,13 @@ Then you can [raise an issue at the GitHub project page](https://github.com/bern
 We want you to feel as comfortable as possible with this project, whatever your skills are.
 Here are some ways to contribute:
 
-* [use it for yourself](docs/contributing.md)
-* [communicate about the project](docs/contributing.md)
-* [submit feedback](docs/contributing.md)
-* [report a bug](docs/contributing.md)
-* [write or fix documentation](docs/contriuting.md)
-* [fix a bug or an issue](docs/contributing.md)
-* [implement some feature](docs/contributing.md)
+* [use it for yourself](docs/contributing.md#how-to-use-this-project-for-yourself)
+* [communicate about the project](docs/contributing.md#how-to-communicate-about-the-project)
+* [submit feedback](docs/contributing.md#how-to-submit-feedback)
+* [report a bug](docs/contributing.md#how-to-report-a-bug)
+* [write or fix documentation](docs/contributing.md#how-to-improve-the-documentation)
+* [fix a bug or an issue](docs/contributing.md#how-to-fix-a-bug)
+* [implement some feature](docs/contributing.md#how-to-implement-new-features)
 
 Every [contribution and feedback](docs/contributing.md) matters, so thank you for your efforts.
 
