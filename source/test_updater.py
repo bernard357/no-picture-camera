@@ -1,3 +1,7 @@
+# -*- coding: utf-8 -*-
+"""
+This modules amis at testing an 'updater'
+"""
 import logging
 import random
 import time
@@ -31,11 +35,10 @@ while counter < 50:
     message = '%s %d %d %d' % (settings.get('id', 'camera42'),
                                random.randint(0, 10),
                                random.randint(0, 3),
-                               random.randint(0, 3) )
+                               random.randint(0, 3))
     uds.push(message)
 
     # wait a bit
     #
     logging.debug('sleeping')
     time.sleep(2)
-
