@@ -1,9 +1,6 @@
-import socket
-import sys
-import os
+# -*- coding: utf-8 -*-
+"""Updater module"""
 import logging
-import socket
-import datetime
 import requests
 import time
 
@@ -14,9 +11,9 @@ import config
 logging.basicConfig(format='%(message)s', level=logging.INFO)
 #logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.DEBUG)
 
-# wait for server to be ready
-#
+
 def use_database(updater):
+    """Wait for server to be ready"""
     attempts = 0
     while True:
         try:
@@ -37,21 +34,21 @@ import uds
 try:
     settings = config.log
 
-    logging.debug("loading log updater")
+    logging.debug('loading log updater')
     from updater_log import LogUpdater
     updater = LogUpdater(settings)
 
     uds.add(updater.push)
 
 except AttributeError:
-    logging.debug("no configuration for log")
+    logging.debug('no configuration for log')
 
 # push data to the sql database
 #
 try:
     settings = config.mysql
 
-    logging.debug("loading MySQL updater")
+    logging.debug('loading MySQL updater')
     from updater_mysql import MysqlUpdater
     updater = MysqlUpdater(settings)
 
@@ -60,9 +57,9 @@ try:
     uds.add(updater.push)
 
 except AttributeError:
-    logging.debug("no configuration for MySQL")
+    logging.debug('no configuration for MySQL')
 
-#except ConnectionError:
+# except ConnectionError:
 #    logging.error("could not connect to MySQL server")
 
 # push data to influx database
@@ -70,7 +67,7 @@ except AttributeError:
 try:
     settings = config.influxdb
 
-    logging.debug("loading InfluxDB updater")
+    logging.debug('loading InfluxDB updater')
     from updater_influx import InfluxdbUpdater
     updater = InfluxdbUpdater(settings)
 
@@ -79,10 +76,10 @@ try:
     uds.add(updater.push)
 
 except AttributeError:
-    logging.debug("no configuration for InfluxDB")
+    logging.debug('no configuration for InfluxDB')
 
 except requests.exceptions.ConnectionError:
-    logging.error("could not connect to InfluxDB server")
+    logging.error('could not connect to InfluxDB server')
 
 # perpetual loop to receive data and trigger all updaters
 #

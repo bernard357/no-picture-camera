@@ -1,30 +1,31 @@
-# credit: https://pymotw.com/2/socket/uds.html
+# -*- coding: utf-8 -*-
+"""
+credit: https://pymotw.com/2/socket/uds.html
+"""
 
 import socket
-import sys
-import time
 import logging
 import os
 
 # use a socket file
 #
 handle = '/tmp/smart-video-counter-socket'
-logging.debug('using %s' % handle)
+logging.debug('using %s', handle)
 
-# send data to outbound processing
-#
+
 def push(message=None):
+    """Send data to outbound processing"""
 
     # sanity check
     #
     if message is None:
         message = 'test 0 0 0'
 
-    logging.info("--> %s" % message)
+    logging.info('--> %s', message)
 
     # use socket file
     #
-    logging.debug('opening %s' % handle)
+    logging.debug('opening %s', handle)
     try:
         sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
         sock.connect(handle)
@@ -35,10 +36,8 @@ def push(message=None):
     # write data
     #
     try:
-
-        logging.debug('sending "%s"' % message)
+        logging.debug('sending "%s"', message)
         sock.sendall(message)
-
     finally:
         logging.debug('closing socket')
         sock.close()
@@ -47,13 +46,13 @@ def push(message=None):
 #
 updaters = []
 
+
 def add(updater):
     updaters.append(updater)
 
-# receive and process data
-#
-def process():
 
+def process():
+    """Receive and process data"""
     # purge socket file
     #
     try:
@@ -85,23 +84,23 @@ def process():
             message = ''
             try:
                 message = connection.recv(1024)
-                logging.debug('received "%s"' % message)
+                logging.debug('received "%s"', message)
             except socket.error:
                 logging.error('socket error')
 
             # push data to updaters
             #
-            logging.info('--> %s' % message)
+            logging.info('--> %s', message)
 
             for updater in updaters:
                 try:
                     updater(message)
                 except Exception as feedback:
-                    logging.error("Error: update has generated an exception")
+                    logging.error('Error: update has generated an exception')
                     logging.info(str(feedback))
 
         # terminate this connection
         #
         finally:
-            logging.debug("closing connection")
+            logging.debug('closing connection')
             connection.close()

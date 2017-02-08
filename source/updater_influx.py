@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+"""Influx module"""
 import datetime
 import logging
 from influxdb import InfluxDBClient
@@ -32,7 +34,7 @@ class InfluxdbUpdater(object):
             self.settings.get('user', 'root'),
             self.settings.get('password', 'root'),
             self.settings.get('database', 'smart-video-counter'),
-            )
+        )
         self.db.create_database(self.settings.get('database', 'smart-counter'))
         return self.db
 
@@ -49,7 +51,7 @@ class InfluxdbUpdater(object):
             self.settings.get('user', 'root'),
             self.settings.get('password', 'root'),
             self.settings.get('database', 'smart-video-counter'),
-            )
+        )
         self.db.drop_database(self.settings.get('database', 'smart-counter'))
         self.db.create_database(self.settings.get('database', 'smart-counter'))
         return self.db
@@ -70,17 +72,17 @@ class InfluxdbUpdater(object):
             items.append('0')
 
         measurement = {
-                "measurement": 'smart-counter',
-                "tags": {
-                    "sender": items[0],
-                },
-                "time": datetime.datetime.utcnow(),
-                "fields": {
-                    "standing": int(items[1]),
-                    "moves": int(items[2]),
-                    "faces": int(items[3]),
-                }
+            'measurement': 'smart-counter',
+            'tags': {
+                'sender': items[0],
+            },
+            'time': datetime.datetime.utcnow(),
+            'fields': {
+                'standing': int(items[1]),
+                'moves': int(items[2]),
+                'faces': int(items[3]),
             }
+        }
 
         logging.debug(measurement)
 
