@@ -18,6 +18,8 @@ to access live data in Grafana.
 Connect over SSH to the target Raspberry Pi and apply following commands:
 
 ```
+sudo apt-get install -y python-dev mysql-server libmysqlclient-dev libopencv-dev python-opencv
+
 sudo mkdir -p /opt
 cd /opt
 sudo git clone https://github.com/bernard357/smart-video-counter.git
