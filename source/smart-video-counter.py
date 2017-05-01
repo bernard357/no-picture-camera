@@ -99,7 +99,7 @@ def main():
         #
         nextim = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
         nextim = cv2.bitwise_and(nextim, nextim, mask=mask)
-        flow = cv2.calcOpticalFlowFarneback(prev, nextim, 0.5, 1, 15, 3, 5, 1.2, 0)
+        flow = cv2.calcOpticalFlowFarneback(prev, nextim, None, 0.5, 1, 3, 15, 3, 5, 1)
         mag, _ = cv2.cartToPolar(flow[..., 0], flow[..., 1])
         mag = mag * 0.8
         prev = nextim
